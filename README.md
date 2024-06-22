@@ -8,3 +8,5 @@
 
 Striver's A2Z DSA Course - https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2
 CodeArmy DSA Course - https://www.youtube.com/playlist?list=PLQEaRBV9gAFu4ovJ41PywklqI7IyXwr01
+
+Roadmap to leetcode - https://www.reddit.com/r/developersIndia/comments/ucyr4b/wiki_how_to_start_with_dsaleetcode_for_companies/
