@@ -41,3 +41,5 @@ int main()
     cout << "Largest element of the array is: " << max << endl;
     return 0;
 }
+
+//TC -> O(n)
