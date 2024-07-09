@@ -109,6 +109,16 @@ void rotate180(vector<vector<int>> matrix)
         }
     } 
 
+
+    //Rotate a Matrix K times [1 time = 90 deg]
+    //1 time = 90 deg
+    //2 times = 180 deg
+    //3 times = 270 deg
+    //4 times = 360 deg/0
+    //5 times = 90 deg and so on
+    
+    //Rotate K % 4 times
+
 int main()
 {
 
