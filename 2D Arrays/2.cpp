@@ -56,6 +56,17 @@ vector<int> spiralOrder(vector<vector<int>> matrix){
     return ans;
 }
 
+void transposeMatrix (vector<vector<int>> matrix, int n) {
+    int row = matrix.size();
+    int col = matrix[0].size();
+
+    for (int i=0; i<row-1; i++){
+        for (int j=i+1; j<col; j++){
+            swap(matrix[i][j], matrix[j][i]);
+        }
+    }
+}
+
 //2. Column Major
 //stored column wise in memory as linear array
 //find formula for memory index
@@ -110,7 +121,9 @@ vector<int> spiralOrder(vector<vector<int>> matrix){
 //Time Complexity -> O(row*col)
 //Space Complexity -> O(1)
 
-//Transpose of a Matrix
+//Transpose of a Matrix without making a new matrix
+//Time Complexity -> O(N^2)
+//Space Complexity -> O(1)
 
 int main(){
 
