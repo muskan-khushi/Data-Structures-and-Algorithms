@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//TC -> O(N)
+
 // Function to print all subsequences with a given sum
 // This function uses recursion to explore all possible subsequences
 void printS(int ind, vector<int> &ds, int s, int sum, int arr[], int n)
