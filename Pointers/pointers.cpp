@@ -38,10 +38,11 @@ void referenceAndDereference() {
  * You can perform arithmetic operations on pointers like addition and subtraction.
  * When you increment a pointer, it points to the next memory location based on the data type size.
  */
+ // Incrementing a Pointer: In C++, when you add an integer to a pointer, the pointer moves forward by the size of its data type (in this case, int, so it moves forward by 4 bytes each time).
 void pointerArithmetic() {
     int arr[] = {1, 2, 3, 4, 5};   // An array of integers
     int* ptr = arr;                // Pointer pointing to the first element of the array
-
+    //By default, *ptr = arr[0]
     cout << "Pointer Arithmetic:" << endl;
     for(int i = 0; i < 5; i++) {
         cout << "Value at ptr + " << i << ": " << *(ptr + i) << endl; // Accessing array elements using pointer arithmetic
