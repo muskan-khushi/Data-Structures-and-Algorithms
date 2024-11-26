@@ -178,27 +178,40 @@ Node* insertAtTail(Node* head, int val) {
     return head;
 }
 
-// Function to insert a node at the Kth position in the linked list
-Node* insertAtK(Node* head, int k, int val) {
-    if (k == 1) return insertAtHead(head, val); // Special case for inserting at the head
+// Function to insert a new element at the k-th position
+void insertAtK(Node* head, int data, int k) {
+    // Step 1: Create the new node
+    Node* newNode = new Node(data);
 
-    Node* newNode = new Node(val); // Create a new node
-    Node* temp = head;
+    // Step 2: Handle insertion at the beginning (k == 1)
+    if (k == 1) {
+        newNode->next = head;  // Point the new node to the current head
+        head = newNode;        // Update the head to the new node
+        return;
+    }
 
-    for (int i = 1; i < k - 1; i++) {
-        if (temp == NULL) break; // If K is out of bounds, break
+    // Step 3: Traverse to the (k-1)th node
+    Node* temp = head; // Pointer to traverse the list
+    int count = 1;     // Counter to track the position
+
+    while (temp != NULL && count < k - 1) {
         temp = temp->next;
+        count++;
     }
 
-    if (temp == NULL || temp->next == NULL) { // If K is out of bounds
-        cout << "Position out of bounds. Inserting at the end instead." << endl;
-        return insertAtTail(head, val); // Insert at the end
+    // Step 4: Check if the position is valid
+    if (temp == NULL) {
+        cout << "Position " << k << " is out of bounds!" << endl;
+        return;
     }
 
-    newNode->next = temp->next;
-    temp->next = newNode;
-    return head;
+    // Step 5: Insert the new node
+    newNode->next = temp->next; // Point the new node to the next node
+    temp->next = newNode;       // Update the (k-1)th node to point to the new node
 }
+
+
+
 
 // Function to insert a node after the first occurrence of a specific value
 Node* insertAfterElement(Node* head, int el, int val) {
@@ -239,10 +252,10 @@ int main() {
     cout << "After inserting 10 at the tail: ";
     displayLL(head);
 
-    // Test case 3: Insert at the 4th position.
-    head = insertAtK(head, 4, 6); // Expected: 1 -> 2 -> 5 -> 6 -> 8 -> 7 -> 10 -> NULL
-    cout << "After inserting 6 at position 4: ";
-    displayLL(head);
+    // // Test case 3: Insert at the 4th position.
+    // head = insertAtK(head, 4, 6); // Expected: 1 -> 2 -> 5 -> 6 -> 8 -> 7 -> 10 -> NULL
+    // cout << "After inserting 6 at position 4: ";
+    // displayLL(head);
 
     // Test case 4: Insert after the first occurrence of 5.
     head = insertAfterElement(head, 5, 9); // Expected: 1 -> 2 -> 5 -> 9 -> 6 -> 8 -> 7 -> 10 -> NULL
@@ -253,10 +266,10 @@ int main() {
     cout << "Final Linked List structure: ";
     displayLL(head);
 
-    // Test case 6: Attempt to insert at a position greater than the length of the list.
-    head = insertAtK(head, 20, 12); // Expected: Insertion at the tail since position is out of bounds.
-    cout << "After attempting to insert 12 at position 20: ";
-    displayLL(head);
+    // // Test case 6: Attempt to insert at a position greater than the length of the list.
+    // head = insertAtK(head, 20, 12); // Expected: Insertion at the tail since position is out of bounds.
+    // cout << "After attempting to insert 12 at position 20: ";
+    // displayLL(head);
 
     // Test case 7: Delete the head of the linked list.
     head = removeHead(head); // Expected: 2 -> 5 -> 9 -> 6 -> 8 -> 7 -> 10 -> 12 -> NULL
@@ -280,4 +293,68 @@ int main() {
 
     return 0;
 }
+
+
+// Here is a **crisp and simple logic** for each type of insertion and deletion in **linked lists**:
+
+// ---
+
+// ### **Insertion Operations**
+
+// 1. **Insert at Head**:
+//    - Create a new node.
+//    - Point the new node’s `next` to the current head.
+//    - Update the head to the new node.
+
+// 2. **Insert at Tail**:
+//    - Create a new node with `next = NULL`.
+//    - Traverse to the last node (where `next = NULL`).
+//    - Update the last node’s `next` to the new node.
+
+// 3. **Insert at a Specific Position (1-based index)**:
+//    - Traverse to the node just before the target position.
+//    - Create a new node.
+//    - Point the new node’s `next` to the target node.
+//    - Update the previous node’s `next` to the new node.
+
+// 4. **Insert After a Specific Value**:
+//    - Traverse to find the node with the specified value.
+//    - Create a new node.
+//    - Point the new node’s `next` to the found node’s `next`.
+//    - Update the found node’s `next` to the new node.
+
+// ---
+
+// ### **Deletion Operations**
+
+// 1. **Delete from Head**:
+//    - Check if the list is empty (head is `NULL`).
+//    - Move the head to `head->next`.
+//    - Delete the old head node.
+
+// 2. **Delete from Tail**:
+//    - Check if the list is empty.
+//    - Traverse to the second-last node (where `next->next = NULL`).
+//    - Update its `next` to `NULL`.
+//    - Delete the last node.
+
+// 3. **Delete by Value**:
+//    - Traverse the list to find the node with the target value.
+//    - Keep track of the previous node.
+//    - Update `previous->next` to `current->next`.
+//    - Delete the current node.
+
+// 4. **Delete from a Specific Position (1-based index)**:
+//    - Traverse to the node just before the target position.
+//    - Update `previous->next` to `current->next`.
+//    - Delete the target node.
+
+// ---
+
+// ### **Key Notes**
+// - Always check if the list is **empty** (head is `NULL`) before performing any deletion.
+// - For **single-node lists**, handle special cases where the head and tail are the same.
+// - Use a **dummy node** for simplicity in edge cases during insertions and deletions.
+
+// Let me know if you need further clarifications or code examples!
 

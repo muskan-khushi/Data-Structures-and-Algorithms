@@ -1,114 +1,107 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-// Queue class to implement a queue using an array
 class Queue {
-  int *arr;      // Array to store elements in the queue
-  int start;     // Points to the front of the queue
-  int end;       // Points to the rear of the queue
-  int currSize;  // Tracks the current number of elements in the queue
-  int maxSize;   // Defines the maximum capacity of the queue
+private:
+    int *queue;
+    int front, rear, size, capacity;
 
 public:
-    // Default constructor with initial size 16
-    Queue() {
-      arr = new int[16];   // Allocate space for 16 elements by default
-      start = -1;          // Initialize 'start' to -1 indicating an empty queue
-      end = -1;            // Initialize 'end' to -1 indicating an empty queue
-      currSize = 0;        // Initial queue size is 0
+    // Constructor
+    Queue(int cap) {
+        capacity = cap;
+        queue = new int[capacity];
+        front = -1;
+        rear = -1;
+        size = 0;
     }
 
-    // Parameterized constructor to set the maximum size of the queue
-    Queue(int maxSize) {
-      this->maxSize = maxSize;  // Set the maximum size of the queue
-      arr = new int[maxSize];   // Allocate array memory based on given max size
-      start = -1;               // Initialize start for empty queue
-      end = -1;                 // Initialize end for empty queue
-      currSize = 0;             // Initial size is 0 since no elements are added
-    }
-  
-    // Function to add an element to the queue
-    void push(int newElement) {
-      // Check if queue is full
-      if (currSize == maxSize) {  
-        cout << "Queue is full\nExiting..." << endl;
-        exit(1);  // Exit if queue has reached maximum capacity
-      }
-      // If queue is empty, initialize start and end pointers
-      if (end == -1) {  
-        start = 0;   // Set start to 0 as we begin adding elements
-        end = 0;
-      } else
-        // Otherwise, increment end pointer in a circular fashion
-        end = (end + 1) % maxSize;
-      
-      // Insert the new element at 'end' position
-      arr[end] = newElement;
-      cout << "The element pushed is " << newElement << endl;
-      
-      // Increment the current size after adding an element
-      currSize++; 
+    // Destructor
+    ~Queue() {
+        delete[] queue;
     }
 
-    // Function to remove an element from the front of the queue
-    int pop() {
-      // Check if the queue is empty
-      if (start == -1) {
-        cout << "Queue Empty\nExiting..." << endl;
-        exit(1);  // Exit if no elements to remove
-      }
-      // Retrieve the element at the front
-      int popped = arr[start]; 
-      
-      // If this was the only element in the queue, reset pointers to empty
-      if (currSize == 1) {
-        start = -1;
-        end = -1;
-      } else
-        // Move start pointer forward in a circular fashion
-        start = (start + 1) % maxSize;
-      
-      // Decrease the current size as an element is removed
-      currSize--;
-      return popped;  // Return the removed element
+    // Enqueue operation
+    void enqueue(int value) {
+        if (isFull()) {
+            cout << "Queue is full! Cannot enqueue " << value << endl;
+            return;
+        }
+        if (front == -1) { // First element being enqueued
+            front = 0;
+        }
+        rear++;
+        queue[rear] = value;
+        size++;
+        cout << "Enqueued: " << value << endl;
     }
 
-    // Function to return the front element without removing it
-    int top() {
-      // Check if the queue is empty
-      if (start == -1) {
-        cout << "Queue is Empty" << endl;
-        exit(1);  // Exit if there are no elements in the queue
-      }
-      return arr[start];  // Return the element at the front of the queue
+    // Dequeue operation
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty! Cannot dequeue." << endl;
+            return -1;
+        }
+        int dequeuedValue = queue[front];
+        front++;
+        size--;
+        if (front > rear) { // Reset the queue when it becomes empty
+            front = -1;
+            rear = -1;
+        }
+        cout << "Dequeued: " << dequeuedValue << endl;
+        return dequeuedValue;
     }
 
-    // Function to return the current size of the queue
-    int size() {
-      return currSize;  // Return the number of elements in the queue
+    // Check if the queue is full
+    bool isFull() {
+        return rear == capacity - 1;
+    }
+
+    // Check if the queue is empty
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    // Get the front element
+    int getFront() {
+        if (isEmpty()) {
+            cout << "Queue is empty!" << endl;
+            return -1;
+        }
+        return queue[front];
+    }
+
+    // Display the queue
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty!" << endl;
+            return;
+        }
+        cout << "Queue elements: ";
+        for (int i = front; i <= rear; i++) {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
     }
 };
 
-// Main function to demonstrate queue operations
 int main() {
-  Queue q(6);  // Create a Queue object with a maximum size of 6
+    Queue q(5);
 
-  // Add elements to the queue
-  q.push(4);
-  q.push(14);
-  q.push(24);
-  q.push(34);
-  
-  // Show the front element and current size before deletion
-  cout << "The peek of the queue before deleting any element: " << q.top() << endl;
-  cout << "The size of the queue before deletion: " << q.size() << endl;
-  
-  // Remove an element from the front of the queue
-  cout << "The first element to be deleted: " << q.pop() << endl;
-  
-  // Show the front element and current size after deletion
-  cout << "The peek of the queue after deleting an element: " << q.top() << endl;
-  cout << "The size of the queue after deleting an element: " << q.size() << endl;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    q.display();
 
-  return 0;
+    q.dequeue();
+    q.display();
+
+    q.enqueue(40);
+    q.enqueue(50);
+    q.enqueue(60); // Attempt to enqueue in a full queue
+    q.display();
+
+    return 0;
 }
+
