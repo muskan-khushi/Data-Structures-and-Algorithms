@@ -39,6 +39,7 @@ int main(){
     q.push(root);
 
     //Build a binary tree
+    //level wise
     while(!q.empty())
     {
         Node* temp = q.front();
