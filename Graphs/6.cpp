@@ -6,6 +6,9 @@ using namespace std;
 
 // Note: An island is either surrounded by water or the boundary of a grid and is formed by connecting adjacent lands horizontally or vertically or diagonally i.e., in all 8 directions.
 
+//SC-> O(N^2)
+//TC -> O(N^2)
+
 class Solution {
 private:
     // Helper function to perform BFS and mark all connected land cells
