@@ -2,7 +2,7 @@
 using namespace std;
 
 // DEPTH FIRST SEARCH
-// using adj list, visited array and stack
+// using adj list, visited array 
 // uses recursion
 
 //sc -> O(N)
